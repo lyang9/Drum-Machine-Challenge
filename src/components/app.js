@@ -36,7 +36,7 @@ SUPER HARD BONUS CHALLENGE!!!!:
 
 import React,   { Component } from 'react';
 import Button from './button.js';
-import Sounds from '../assets/sounds.js';
+import Sounds from '../assets/sounds.js'; 
 
 class App extends Component {
   constructor(){
@@ -49,14 +49,28 @@ class App extends Component {
 
   playSound(eventObj) {
     //code to be run when click event is fired goes below this line!
-
+    console.log(`eventObj`, eventObj.currentTarget.id);
+    const myCurrentSound = eventObj.currentTarget.id
+    console.log(`foooo`, Sounds[myCurrentSound]);
+    Sounds[myCurrentSound].currentTime = 0;
+    Sounds[myCurrentSound].play();
   }
 
   render(){
+    console.log(`Sounds:`, Sounds);
 
+    const buttons = [];
+    for(let i = 0; i < this.state.sounds.length; i++) {
+      buttons.push(
+        <Button sound={this.state.sounds[i]} 
+          playSound={this.playSound} 
+        />
+      );
+    }
     return (
       <div className='button-container'>
       {/* Components that need to be returned from App go below here ! */}
+        {buttons}
       </div>
     );
   }
